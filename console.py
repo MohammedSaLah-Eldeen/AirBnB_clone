@@ -3,14 +3,25 @@
 defines the HBNB console.
 """
 import cmd
+from models.__init__ import storage
 from models.base_model import BaseModel
 from models.user import User
-from models.__init__ import storage
-
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+        
 clx = {
     'BaseModel': BaseModel,
     'User': User,
+    'State': State,
+    'City': City,
+    'Amenity': Amenity,
+    'Place': Place,
+    'Review': Review
 }
+
 
 class HBNBCommand(cmd.Cmd):
     """HBNB console."""
@@ -20,6 +31,8 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, cls):
         """creates object classes."""
         if cls and cls in clx:
+            if storage.all():
+                storage.reload()
             obj = clx[cls]()
             storage.save()
             print(obj.id)
