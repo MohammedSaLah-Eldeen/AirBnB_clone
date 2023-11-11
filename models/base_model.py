@@ -38,8 +38,10 @@ class BaseModel:
         """returns a dictionary representation of the object."""
         d = self.__dict__
         d['__class__'] = type(self).__name__
-        d['created_at'] = self.created_at.isoformat()
-        d['updated_at'] = self.updated_at.isoformat()
+        if type(self.created_at) != str:
+            d['created_at'] = self.created_at.isoformat()
+        if type(self.updated_at) != str:
+            d['updated_at'] = self.updated_at.isoformat()
         
         return d
 
