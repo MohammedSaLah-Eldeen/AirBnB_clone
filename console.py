@@ -3,6 +3,7 @@
 defines the HBNB console.
 """
 import cmd
+import sys
 from models.__init__ import storage
 from models.base_model import BaseModel
 from models.user import User
@@ -26,7 +27,7 @@ clx = {
 class HBNBCommand(cmd.Cmd):
     """HBNB console."""
 
-    prompt = '(hbnb) '
+    prompt = '(hbnb) ' if sys.__stdin__.isatty() else ''
 
     def do_create(self, cls):
         """creates object classes."""
