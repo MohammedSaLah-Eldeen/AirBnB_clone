@@ -29,6 +29,27 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = '(hbnb) '
 
+    def default(self, line):
+        """Default behavior for cmd module when input is invalid"""
+        cmds = {
+            "all": self.do_all,
+            "show": self.do_show,
+            "destroy": self.do_destroy,
+            "count": self.do_count,
+            "update": self.do_update
+        }
+        pattern_match = re.search(r"\.", line)
+        if pattern_match is not None:
+            argl = [line[:pattern_match.span()[0]], line[pattern_match.span()[1]:]]
+            pattern_match = re.search(r"\((.*?)\)", argl[1])
+            if pattern_match is not None:
+                command = [argl[1][:pattern_match.span()[0]], pattern_match.group()[1:-1]]
+                if command[0] in cmds.keys():
+                    call = "{} {}".format(argl[0], command[1])
+                    return cmds[command[0]](call)
+        print("*** Unknown syntax: {}".format(line))
+        return False
+
     def do_create(self, cls):
         """creates object classes."""
         if cls and cls in clx:
