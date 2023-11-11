@@ -27,7 +27,7 @@ clx = {
 class HBNBCommand(cmd.Cmd):
     """HBNB console."""
 
-    prompt = '(hbnb) ' if sys.__stdin__.isatty() else ''
+    prompt = '(hbnb) '
 
     def do_create(self, cls):
         """creates object classes."""
