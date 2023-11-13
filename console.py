@@ -12,7 +12,7 @@ from models.city import City
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
-        
+
 clx = {
     'BaseModel': BaseModel,
     'User': User,
@@ -58,21 +58,20 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
                 return
             elif len(args) == 1:
-                print("** instance id missing **")            
+                print("** instance id missing **")
                 return
-        
+
         cls = args[0]
         ld = args[1]
-            
+
         key = f"{cls}.{ld}"
         storage.reload()
-        
+
         try:
             obj = storage.all()[key]
             print(obj)
         except KeyError:
             print("** no instance found **")
-        
 
     def help_show(self):
         """docks for the show command."""
@@ -90,21 +89,20 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
                 return
             elif len(args) == 1:
-                print("** instance id missing **")            
+                print("** instance id missing **")
                 return
-        
+
         cls = args[0]
         ld = args[1]
-            
+
         key = f"{cls}.{ld}"
         storage.reload()
-        
+
         try:
             del storage.all()[key]
             storage.save()
         except KeyError:
             print("** no instance found **")
-        
 
     def help_destroy(self):
         """docs for the destroy command."""
@@ -142,7 +140,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
                 return
             elif len(args) == 1:
-                print("** instance id missing **")            
+                print("** instance id missing **")
                 return
             elif len(args) == 2:
                 print("** attribute name missing **")
@@ -161,17 +159,17 @@ class HBNBCommand(cmd.Cmd):
         if key not in storage.all():
             print("** no instance found **")
             return
-        
+
         new_attr = {attr: val}
         obj = storage.all()[key]
         obj.__dict__.update(new_attr)
         obj.save()
-        
+
     def help_update(self):
         """docs for the update command."""
         print("updates one attribute of one object.")
-        print("[usage]: update <classname> <id> <attribute name> <attribute value>")
-        
+        print("[usage]: update <classname> <id> <attr name> <value>")
+
     def do_quit(self, line):
         """this method defines the logic for the quit command."""
         return True
@@ -188,7 +186,7 @@ class HBNBCommand(cmd.Cmd):
     def help_EOF(self):
         """docs for the command EOF."""
         print("receives the EOF signal and terminates the shell.")
-    
+
     def emptyline(self):
         """method called when the input is empty"""
         pass

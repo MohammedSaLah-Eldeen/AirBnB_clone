@@ -4,6 +4,7 @@ defines the `FileStorage` class.
 """
 import json
 
+
 class FileStorage:
     """Class to serialize/deserialize data objects."""
     __file_path = "file.json"
@@ -28,7 +29,7 @@ class FileStorage:
                 temp[key] = obj.to_dict()
 
             json.dump(temp, f)
-            
+
     def reload(self):
         """deserializes the json file to object dictionary."""
         from models.base_model import BaseModel
@@ -38,7 +39,7 @@ class FileStorage:
         from models.amenity import Amenity
         from models.place import Place
         from models.review import Review
-        
+
         clx = {
             'BaseModel': BaseModel,
             'User': User,
@@ -48,7 +49,7 @@ class FileStorage:
             'Place': Place,
             'Review': Review
         }
-        
+
         try:
             with open(FileStorage.__file_path, "r") as f:
                 objs = json.load(f)
@@ -56,6 +57,6 @@ class FileStorage:
                     objs[key] = clx[dic['__class__']](**dic)
 
                 self.all().update(objs)
-                
+
         except FileNotFoundError:
             pass

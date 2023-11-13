@@ -4,6 +4,7 @@ defines the place Model.
 """
 from models.base_model import BaseModel
 
+
 class Place(BaseModel):
     """The place class to manage places."""
 
